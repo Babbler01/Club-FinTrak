@@ -1,0 +1,20 @@
+
+> club-fintrak@0.0.0 build
+> tsc -b && vite build
+
+src/components/Budgets.tsx(23,34): error TS2339: Property 'updateBudget' does not exist on type 'DbContextType'.
+src/components/Layout.tsx(15,3): error TS6133: 'BarChart2' is declared but its value is never read.
+src/components/ProjectDetails.tsx(1,17): error TS6133: 'useMemo' is declared but its value is never read.
+src/components/ProjectDetails.tsx(3,1): error TS6192: All imports in import declaration are unused.
+src/components/ProjectDetails.tsx(4,35): error TS6133: 'Trash2' is declared but its value is never read.
+src/components/Projects.tsx(3,1): error TS6133: 'Project' is declared but its value is never read.
+src/context/DbContext.tsx(139,78): error TS2345: Argument of type '{ id: string; title: string; description: string; beneficiaries: number; incomes: { id: string; project_id: string; date: string; description: string; amount: number; type: string; category: string; }[]; expenditures: { ...; }[]; }[]' is not assignable to parameter of type 'Project[]'.
+  Type '{ id: string; title: string; description: string; beneficiaries: number; incomes: { id: string; project_id: string; date: string; description: string; amount: number; type: string; category: string; }[]; expenditures: { ...; }[]; }' is not assignable to type 'Project'.
+    Types of property 'incomes' are incompatible.
+      Type '{ id: string; project_id: string; date: string; description: string; amount: number; type: string; category: string; }[]' is not assignable to type 'ProjectEntry[]'.
+        Type '{ id: string; project_id: string; date: string; description: string; amount: number; type: string; category: string; }' is not assignable to type 'ProjectEntry'.
+          Types of property 'type' are incompatible.
+            Type 'string' is not assignable to type '"income" | "expense"'.
+src/context/DbContext.tsx(422,9): error TS6133: 'updateBudget' is declared but its value is never read.
+src/lib/mockData.ts(1,56): error TS6196: 'Project' is declared but never used.
+src/lib/mockData.ts(1,65): error TS6196: 'ProjectEntry' is declared but never used.
