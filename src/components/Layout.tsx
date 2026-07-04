@@ -10,8 +10,7 @@ import {
   Menu, 
   X, 
   Activity, 
-  Database,
-  BarChart2
+  Database
 } from 'lucide-react';
 
 interface LayoutProps {

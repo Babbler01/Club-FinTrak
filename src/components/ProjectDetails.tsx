@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDb } from '../context/DbContext';
-import type { Project, ProjectEntry } from '../types';
 import { ChevronLeft, PlusCircle } from 'lucide-react';
 
 const CATEGORIES = [

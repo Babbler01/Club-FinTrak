@@ -37,6 +37,9 @@ interface DbContextType {
   updateDuesRecord: (d: DuesRecord) => Promise<DuesRecord>;
   deleteDuesRecord: (id: string) => Promise<void>;
   generateDuesForAllMembers: (amount: number, dueDate: string) => Promise<void>;
+
+  // Budgets API
+  updateBudget: (b: Budget) => Promise<Budget>;
   
   // Projects API
   addProject: (project: Omit<Project, 'id' | 'incomes' | 'expenditures'>) => Promise<Project>;
@@ -622,6 +625,7 @@ export const DbProvider: React.FC<{ children: React.ReactNode }> = ({ children }
       updateDuesRecord,
       deleteDuesRecord,
       generateDuesForAllMembers,
+      updateBudget,
       addProject,
       updateProject,
       deleteProject,

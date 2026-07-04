@@ -1,4 +1,4 @@
-import type { Transaction, Member, DuesRecord, Budget, Project, ProjectEntry } from '../types';
+import type { Transaction, Member, DuesRecord, Budget, Project } from '../types';
 
 export const MOCK_MEMBERS: Member[] = [
   { id: 'm1', name: 'John Doe', email: 'john.doe@example.com', status: 'active', joined_date: '2025-01-15' },
@@ -18,7 +18,7 @@ export const MOCK_BUDGETS: Budget[] = [
   { category: 'Events & Guest Speakers', limit_amount: 1500, period: 'Annual' },
 ];
 
-export const MOCK_PROJECTS = [
+export const MOCK_PROJECTS: Project[] = [
   {
     id: 'p1',
     title: 'Community Skills Workshop',

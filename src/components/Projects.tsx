@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { useDb } from '../context/DbContext';
-import type { Project } from '../types';
 import { Plus, Pencil, Eye, Trash2 } from 'lucide-react';
 import { ConfirmModal } from './ConfirmModal';
 
