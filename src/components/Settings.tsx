@@ -55,6 +55,9 @@ export const Settings: React.FC = () => {
 
   const sqlSchema = `-- SQL Schema Migration for Club FinTrak
 -- Paste this script into your Supabase SQL Editor to set up your tables.
+-- Enable row-level security and grant authenticated users access.
+
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- 1. Create members table
 CREATE TABLE IF NOT EXISTS members (
@@ -97,6 +100,45 @@ CREATE TABLE IF NOT EXISTS budgets (
   period TEXT NOT NULL DEFAULT 'Monthly',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- 5. Create projects table
+CREATE TABLE IF NOT EXISTS projects (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT,
+  beneficiaries INTEGER NOT NULL DEFAULT 0,
+  incomes JSONB NOT NULL DEFAULT '[]'::jsonb,
+  expenditures JSONB NOT NULL DEFAULT '[]'::jsonb,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Enable Row Level Security for all tables
+ALTER TABLE members ENABLE ROW LEVEL SECURITY;
+ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE dues ENABLE ROW LEVEL SECURITY;
+ALTER TABLE budgets ENABLE ROW LEVEL SECURITY;
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+
+-- Allow authenticated users to use the tables
+CREATE POLICY "Allow authenticated users on members" ON members FOR ALL
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
+
+CREATE POLICY "Allow authenticated users on transactions" ON transactions FOR ALL
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
+
+CREATE POLICY "Allow authenticated users on dues" ON dues FOR ALL
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
+
+CREATE POLICY "Allow authenticated users on budgets" ON budgets FOR ALL
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
+
+CREATE POLICY "Allow authenticated users on projects" ON projects FOR ALL
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
 `;
 
   const copySqlToClipboard = () => {
