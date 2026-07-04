@@ -70,7 +70,7 @@ export const AuthScreen: React.FC = () => {
                 <p className="mt-1 text-xs text-slate-500 leading-relaxed">
                   {supabaseConfigured 
                     ? 'Connected to your cloud Supabase database.' 
-                    : 'No Supabase credentials found. App is running locally via browser Storage. Feel free to use mock accounts or click Quick Launch.'
+                    : 'This deployment is currently running in demo mode because Supabase credentials are not configured. You can continue with demo access, or connect real auth by adding VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel.'
                   }
                 </p>
               </div>
