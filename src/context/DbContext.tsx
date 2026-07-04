@@ -123,9 +123,13 @@ export const DbProvider: React.FC<{ children: React.ReactNode }> = ({ children }
         
         setIsDemoMode(false);
       } catch (err) {
-        console.error("Supabase fetch error, falling back to local storage:", err);
-        // Fallback to local storage on error
-        loadLocalStorageData();
+        console.error("Supabase connection is configured, but the cloud tables could not be loaded:", err);
+        setTransactions([]);
+        setMembers([]);
+        setDues([]);
+        setBudgets([]);
+        setProjects([]);
+        setIsDemoMode(false);
       }
     } else {
       // Local Storage Mode

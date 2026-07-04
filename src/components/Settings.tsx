@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDb } from '../context/DbContext';
-import { saveSupabaseConfig, clearSupabaseConfig, getSupabaseConfig } from '../lib/supabase';
+import { saveSupabaseConfig, clearSupabaseConfig, getSupabaseConfig, hasSupabaseEnvConfig } from '../lib/supabase';
 import { 
   Database, 
   Settings as SettingsIcon, 
@@ -128,6 +128,11 @@ CREATE TABLE IF NOT EXISTS budgets (
               <div>
                 <h3 className="text-base font-bold text-slate-900">Supabase Cloud Connection</h3>
                 <p className="text-xs text-slate-400">Connect the dashboard to your live cloud SQL database.</p>
+                {hasSupabaseEnvConfig() && (
+                  <p className="mt-1 text-[11px] font-medium text-emerald-600">
+                    Vercel environment variables are detected for Supabase.
+                  </p>
+                )}
               </div>
             </div>
 

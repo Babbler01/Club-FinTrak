@@ -1,17 +1,26 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Retrieve credentials from environment variables or LocalStorage
+// Retrieve credentials from environment variables first, then fall back to LocalStorage.
+// In Vercel deployments, the build-time env vars should take precedence.
 export const getSupabaseConfig = () => {
-  const envUrl = import.meta.env.VITE_SUPABASE_URL;
-  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-  
-  const localUrl = localStorage.getItem('fintrak_supabase_url');
-  const localKey = localStorage.getItem('fintrak_supabase_key');
-  
+  const envUrl = import.meta.env.VITE_SUPABASE_URL?.trim() || '';
+  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() || '';
+  const hasEnvConfig = Boolean(envUrl && envKey);
+
+  const localUrl = typeof window !== 'undefined'
+    ? window.localStorage.getItem('fintrak_supabase_url')?.trim() || ''
+    : '';
+  const localKey = typeof window !== 'undefined'
+    ? window.localStorage.getItem('fintrak_supabase_key')?.trim() || ''
+    : '';
+
+  const url = hasEnvConfig ? envUrl : localUrl;
+  const key = hasEnvConfig ? envKey : localKey;
+
   return {
-    url: localUrl || envUrl || '',
-    key: localKey || envKey || '',
-    isConfigured: !!(localUrl || envUrl) && !!(localKey || envKey)
+    url,
+    key,
+    isConfigured: Boolean(url && key)
   };
 };
 
@@ -31,6 +40,12 @@ export const saveSupabaseConfig = (url: string, key: string) => {
     localStorage.removeItem('fintrak_supabase_url');
     localStorage.removeItem('fintrak_supabase_key');
   }
+};
+
+export const hasSupabaseEnvConfig = () => {
+  const envUrl = import.meta.env.VITE_SUPABASE_URL?.trim() || '';
+  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() || '';
+  return Boolean(envUrl && envKey);
 };
 
 // Helper to clear config
